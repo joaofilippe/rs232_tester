@@ -35,6 +35,7 @@ class SerialController with ChangeNotifier {
     reader.stream.listen((received) {
       data = received;
       dataStr.add(String.fromCharCodes(received));
+      log(dataStr.toString());
       notifyListeners();
     }, onError: (error) => log(error.toString()));
   }
@@ -44,7 +45,7 @@ class SerialController with ChangeNotifier {
     notifyListeners();
   }
 
-   write(String message) {
+  write(String message) {
     if (!port.isOpen) return;
     port.write(Uint8List.fromList(message.codeUnits));
   }
